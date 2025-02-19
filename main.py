@@ -1,7 +1,7 @@
 '''
 Author: diudiu62
 Date: 2025-02-18 16:50:13
-LastEditTime: 2025-02-19 17:59:15
+LastEditTime: 2025-02-19 18:24:28
 '''
 import asyncio
 from astrbot.api.event import AstrMessageEvent
@@ -60,7 +60,8 @@ class MyPlugin(Star):
                         if self.is_user_in_group(wxid, users_list["data"]["memberList"]):
                             logger.info("用户已经在群聊。")
                             group_info = await client.get_chatroom_info(group_id)
-                            yield event.plain_result(f"你已经在群 【{group_info["data"]["nickName"]}】 中了！")
+                            group_name = group_info["data"]["nickName"]
+                            yield event.plain_result(f"你已经在群 【{group_name}】 中了！")
                         else:
                             await self.invite_user(wxid, group_id, client)
                             delay = self.group_welcome_msg.get("delay", 0)
