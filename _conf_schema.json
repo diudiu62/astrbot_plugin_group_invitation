@@ -1,0 +1,49 @@
+{
+    "group_invitation_config": {
+        "description": "邀请入群配置",
+        "hint": "只支持gewechat服务。",
+        "obvious_hint": true,
+        "type": "object",
+        "items": {
+            "switch": {
+                "description": "开关",
+                "type": "bool",
+                "hint": "是否开启邀请入群。"
+            },
+            "keywords": {
+                "description": "关键词",
+                "type": "list",
+                "hint": "用“#”分隔关键词和群ID，例：ai#47538791791，群ID可以在所在群发送”/groupid“指令获得。",
+                "obvious_hint": true
+            },
+            "delay": {
+                "description": "延时发送时间（秒）",
+                "type": "int",
+                "hint": "预防风控，单位秒。"
+            }
+        }
+    },
+    "group_welcome_msg":{
+        "description": "入群欢迎语",
+        "type": "object",
+        "items": {
+            "switch": {
+                "description": "开关",
+                "type": "bool",
+                "hint": "是否开启入群欢迎语。"
+            },
+            "msg": {
+                "description": "欢迎语",
+                "type": "string",
+                "hint": "入群欢迎语，空白则系统随机发送。",
+                "default": "欢迎新人入群！"
+            },
+            "delay": {
+                "description": "延时发送时间（秒）",
+                "type": "int",
+                "hint": "预防风控，单位秒。"
+            }
+        }
+    }
+    
+}
