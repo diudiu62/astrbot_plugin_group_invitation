@@ -1,7 +1,7 @@
 '''
 Author: diudiu62
 Date: 2025-02-18 16:50:13
-LastEditTime: 2025-02-19 18:24:28
+LastEditTime: 2025-02-26 09:30:38
 '''
 import asyncio
 from astrbot.api.event import AstrMessageEvent
@@ -64,7 +64,7 @@ class MyPlugin(Star):
                             yield event.plain_result(f"你已经在群 【{group_name}】 中了！")
                         else:
                             await self.invite_user(wxid, group_id, client)
-                            delay = self.group_welcome_msg.get("delay", 0)
+                            delay = int(self.group_welcome_msg.get("delay", 0))
                             await asyncio.sleep(delay)  # 延时
                             await self.send_welcome_message(wxid, nickname, group_id, client, event)
 
@@ -82,7 +82,8 @@ class MyPlugin(Star):
         """邀请用户加入群聊"""
         logger.info("用户不在群聊，尝试邀请...")
         await client.invite_member(wxid, group_id, "")
-        await asyncio.sleep(1)
+        delay = int(self.group_invitation_config.get("delay", 0))
+        await asyncio.sleep(delay)  # 延时
         await client.post_text(wxid, "已经邀请您加入群聊。")
 
     async def send_welcome_message(self, wxid, nickname, group_id, client, event):
