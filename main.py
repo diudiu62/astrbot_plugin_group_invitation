@@ -1,7 +1,7 @@
 '''
 Author: diudiu62
 Date: 2025-02-18 16:50:13
-LastEditTime: 2025-02-26 09:30:38
+LastEditTime: 2025-02-26 09:39:47
 '''
 import asyncio
 from astrbot.api.event import AstrMessageEvent
@@ -64,8 +64,6 @@ class MyPlugin(Star):
                             yield event.plain_result(f"你已经在群 【{group_name}】 中了！")
                         else:
                             await self.invite_user(wxid, group_id, client)
-                            delay = int(self.group_welcome_msg.get("delay", 0))
-                            await asyncio.sleep(delay)  # 延时
                             await self.send_welcome_message(wxid, nickname, group_id, client, event)
 
                     except Exception as e:
@@ -98,5 +96,7 @@ class MyPlugin(Star):
             )
             if llm_response.role == "assistant":
                 welcome_msg = llm_response.completion_text
+        delay = int(self.group_welcome_msg.get("delay", 0))
+        await asyncio.sleep(delay)  # 延时
         await client.post_text(group_id, welcome_msg, wxid)
         logger.info(f"发送入群欢迎信息：{welcome_msg}")
