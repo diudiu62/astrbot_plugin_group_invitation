@@ -1,7 +1,7 @@
 '''
 Author: diudiu62
 Date: 2025-02-18 16:50:13
-LastEditTime: 2025-02-27 13:38:55
+LastEditTime: 2025-03-03 11:14:02
 '''
 
 import asyncio
@@ -74,10 +74,11 @@ class MyPlugin(Star):
 
                     except ExceptionGroup as e:
                         logger.error(f"处理群邀请时发生错误: {e}")
-
+                    
+                    event.stop_event()
                     break
                     
-            event.stop_event()
+                    
 
     async def is_user_in_group(self, wxid, member_list):
         """检查用户是否在群聊中"""
